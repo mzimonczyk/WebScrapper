@@ -42,5 +42,9 @@ class MockConfigReader(IConfigReader):
             , 'booster': 0
             , 'child_seat': 0
             }
-        list = {sample}
+
+        sample1 = SourceDescription()
+        sample1.type = 'GET'
+        sample1.url = 'http://biletylotnicze.itaka.pl/charter/results-json?departure_date=03.01.2016&adults=2&children=0&sort_type=1&page=1'
+        list = {sample1}
         return list

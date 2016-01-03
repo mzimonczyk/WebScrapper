@@ -1,7 +1,9 @@
 from unittest import TestCase
+
 from Configuration.SourceDescription import SourceDescription
 from Parsers.DoYouSpainParser import DoYouSpainParser
 from Parsers.Factory import DataParserFactory
+from Parsers.ItakaParser import ItakaParser
 
 
 class TestDataParserFactory(TestCase):
@@ -24,3 +26,14 @@ class TestDataParserFactory(TestCase):
         self.failIfEqual(parser, None)
         self.assertIsNotNone(parser)
         self.assertIsInstance(parser, DoYouSpainParser)
+
+    def test_factory_creates_ItakaParser_when_url_contains_itaka_pl_string(self):
+        factory = DataParserFactory()
+        source = SourceDescription
+        source.url = 'http://biletylotnicze.itaka.pl'
+
+        parser = factory.create(source)
+
+        self.failIfEqual(parser, None)
+        self.assertIsNotNone(parser)
+        self.assertIsInstance(parser, ItakaParser)

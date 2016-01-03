@@ -1,6 +1,8 @@
 from unittest import TestCase
+
 from Configuration.SourceDescription import SourceDescription
 from Grabbers.Factory import DataGrabberFactory
+from Grabbers.GetGrabber import GetDataGrabber
 from Grabbers.PostGrabber import PostDataGrabber
 
 
@@ -24,3 +26,12 @@ class TestDataGrabberFactory(TestCase):
         self.assertIsNotNone(grabber)
         self.assertIsInstance(grabber, PostDataGrabber)
 
+    def test_factory_creates_get_data_grabber_when_post_param_is_set(self):
+        factory = DataGrabberFactory()
+        source = SourceDescription
+        source.type = 'GET'
+
+        grabber = factory.create(source)
+
+        self.assertIsNotNone(grabber)
+        self.assertIsInstance(grabber, GetDataGrabber)

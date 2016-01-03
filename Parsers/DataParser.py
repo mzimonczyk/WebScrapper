@@ -8,3 +8,8 @@ class IDataParser:
     def get_data(self):
         pass
 
+    def has_more_data(self):
+        return False
+
+    def modify_source_desc(self, source_desc):
+        pass

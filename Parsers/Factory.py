@@ -1,5 +1,7 @@
-from DoYouSpainParser import DoYouSpainParser
 import string
+
+from DoYouSpainParser import DoYouSpainParser
+from ItakaParser import ItakaParser
 
 
 class DataParserFactory:
@@ -7,7 +9,9 @@ class DataParserFactory:
     def create(source_description):
         if source_description is None or source_description.url is None:
             return None
-        if string.find(source_description.url.lower(), 'doyouspain') >= 0:
+        elif string.find(source_description.url.lower(), 'doyouspain') >= 0:
             return DoYouSpainParser()
+        elif string.find(source_description.url.lower(), 'itaka.pl') >= 0:
+            return ItakaParser()
         pass
 
