@@ -1,4 +1,5 @@
 from MySqlDataSaver import MySqlDataSaver
+from Configuration.DbConfiguration import DbConfiguration
 
 
 class DataSaverFactory:
@@ -7,5 +8,6 @@ class DataSaverFactory:
         if source_description is None:
             return None
 
-        return MySqlDataSaver()
+        config = DbConfiguration('config.ini')
+        return MySqlDataSaver(config.host, config.database, config.user, config.password)
 
