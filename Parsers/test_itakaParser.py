@@ -27,7 +27,6 @@ class TestItakaParser(TestCase):
         parser.parse_data(json_string)
 
         self.assertTrue(parser.has_more_data())
-        pass
 
     def test_has_more_data_returns_false_after_calling_parse_data_on_content_with_json_param_available_more_offers_set(
             self):
@@ -37,7 +36,6 @@ class TestItakaParser(TestCase):
         parser.parse_data(json_string)
 
         self.assertFalse(parser.has_more_data())
-        pass
 
     def test_parse_flight_description(self):
         # description = 'Warszawa (Polska) Barcelona (Hiszpania) Bilet tam i z powrotem Wylot 9 Styczen 05:00 (Sob) Warszawa, Okecie 08:10 (Sob) Barcelona, Barcelona Powrót 16 Styczen 09:00 (Sob) Barcelona, Barcelona 12:00 (Sob) Warszawa, Okecie W cenie: Bagaz Oplaty lotniskowe Rezerwuj 391pln '

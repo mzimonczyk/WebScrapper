@@ -109,5 +109,5 @@ class ItakaParser(IDataParser):
         month = months.index(results.group("month"))
         formatted_date = str(year) + '-' + str(month) + '-' + results.group("day") \
                          + ' ' + results.group("hour") + ':' + results.group("minute")
-        strptime(formatted_date, "%Y-%m-%d %H:%M")
+
         return strptime(formatted_date, "%Y-%m-%d %H:%M")

@@ -2,6 +2,7 @@ import string
 from time import strftime
 from DoYouSpainParser import DoYouSpainParser
 from ItakaParser import ItakaParser
+from TuiParser import TuiParser
 
 
 class DataParserFactory:
@@ -13,5 +14,7 @@ class DataParserFactory:
             return DoYouSpainParser()
         elif string.find(source_description.url.lower(), 'itaka.pl') >= 0:
             return ItakaParser(strftime("%Y-%m-%d %H:%M:%S"))
+        elif string.find(source_description.url.lower(), 'tui.pl') >= 0:
+            return TuiParser(strftime("%Y-%m-%d %H:%M:%S"))
         pass
 

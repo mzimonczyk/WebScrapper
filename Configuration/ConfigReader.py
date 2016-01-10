@@ -1,7 +1,9 @@
 from Configuration.SourceDescription import SourceDescription
 
+
 def ceate_mock_config_reader():
     return MockConfigReader()
+
 
 class IConfigReader:
     def __init__(self):
@@ -41,10 +43,32 @@ class MockConfigReader(IConfigReader):
             , 'send': 'Search'
             , 'booster': 0
             , 'child_seat': 0
-            }
+                       }
 
         sample1 = SourceDescription()
         sample1.type = 'GET'
         sample1.url = 'http://biletylotnicze.itaka.pl/charter/results-json?departure_date=03.01.2016&adults=2&children=0&sort_type=1&page=1'
-        list = {sample1}
+
+        sample2 = SourceDescription()
+        sample2.type = 'GET'
+        sample2.url = 'http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=ln7&adults=2&page=1'
+
+        sample3 = SourceDescription()
+        sample3.type = 'GET'
+        sample3.url = 'http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=lt7&adults=2&page=1'
+
+        sample4 = SourceDescription()
+        sample4.type = 'GET'
+        sample4.url = 'http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=ln911&adults=2&page=1'
+
+        sample5 = SourceDescription()
+        sample5.type = 'GET'
+        sample5.url = 'http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=ln9-13&adults=2&page=1'
+        # http://oferty.tui.pl/bilety-lotnicze/wyniki-wyszukiwania#page=1
+        # http://oferty.tui.pl/ajax/chartersSearch,12755?adults=2&page=28
+        # http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=lt7&adults=2&page=5
+        # http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=ln7&adults=2&page=5
+        # http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=ln911&adults=2&page=5
+        # http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=ln9-13&adults=2&page=5
+        list = {sample1, sample2, sample3, sample4, sample5}
         return list
