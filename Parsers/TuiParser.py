@@ -9,7 +9,7 @@ class TuiParser(IDataParser):
     def __init__(self, timestamp):
         IDataParser.__init__(self)
         columns = ['TIMESTAMP', 'DEPARTURE', 'DESTINATION', 'DEPARTURE_DATE', 'RETURN_DATE', 'PRICE', 'FREE_SEATS',
-                   'LAST_UPDATE', '_PAGE']
+                   'LAST_UPDATE']
         table_name = 'TUI'
         self._data = WebData(table_name, columns)
         self._timestamp = timestamp
@@ -50,7 +50,6 @@ class TuiParser(IDataParser):
                 , row['price']
                 , row['free_seats']
                 , strptime(row['last_update'], "%Y-%m-%d %H:%M:%S")
-                , self._page_number
             ])
 
     def format_date(self, date):
