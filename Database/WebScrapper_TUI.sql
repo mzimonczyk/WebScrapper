@@ -16,20 +16,25 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `ITAKA`
+-- Table structure for table `TUI`
 --
 
-DROP TABLE IF EXISTS `ITAKA`;
+DROP TABLE IF EXISTS `TUI`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ITAKA` (
+CREATE TABLE `TUI` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `TIMESTAMP` datetime DEFAULT NULL,
   `DEPARTURE` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `DESTINATION` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `COUNTRY` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `DEPARTURE_DATE` datetime DEFAULT NULL,
   `RETURN_DATE` datetime DEFAULT NULL,
-  `PRICE` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `PRICE` int(11) DEFAULT NULL,
+  `FREE_SEATS` int(11) DEFAULT NULL,
+  `LAST_UPDATE` datetime DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=17798 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

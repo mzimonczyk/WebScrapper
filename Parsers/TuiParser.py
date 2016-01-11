@@ -8,8 +8,8 @@ from Configuration.WebData import WebData
 class TuiParser(IDataParser):
     def __init__(self, timestamp):
         IDataParser.__init__(self)
-        columns = ['TIMESTAMP', 'DEPARTURE', 'DESTINATION', 'DEPARTURE_DATE', 'RETURN_DATE', 'PRICE', 'FREE_SEATS',
-                   'LAST_UPDATE']
+        columns = ['TIMESTAMP', 'DEPARTURE', 'DESTINATION', 'COUNTRY', 'DEPARTURE_DATE', 'RETURN_DATE', 'PRICE',
+                   'FREE_SEATS', 'LAST_UPDATE']
         table_name = 'TUI'
         self._data = WebData(table_name, columns)
         self._timestamp = timestamp
@@ -45,6 +45,7 @@ class TuiParser(IDataParser):
                 self._timestamp
                 , row['airport_from_name']
                 , row['airport_to_name']
+                , row['country_name_to'].encode("utf-8")
                 , self.format_date(row['dt_from'])
                 , self.format_date(row['dt_to'])
                 , row['price']

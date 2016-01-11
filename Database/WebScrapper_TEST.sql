@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `WebScrapper` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
-USE `WebScrapper`;
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: 192.168.1.120    Database: WebScrapper
@@ -39,4 +37,4 @@ CREATE TABLE `TEST` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-01-09 14:31:30
+-- Dump completed on 2016-01-11 22:16:57
