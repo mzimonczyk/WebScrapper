@@ -49,18 +49,6 @@ class TestItakaParser(TestCase):
 
         self.assertEqual(len(parser.get_data().get_rows()), 1)
 
-    def test_parse_data_two_times_removes_old_data(self):
-        with open('Parsers\\test_itaka.pl_content.json') as f:
-            content_with_five_records = f.read()
-        parser = ItakaParser('some_date')
-
-        parser.parse_data(content_with_five_records)
-        parser.parse_data(content_with_five_records)
-
-        data = parser.get_data()
-
-        self.assertEqual(len(parser.get_data().get_rows()), 5)
-
     def test_parse_flight_description_with_polish_characters(self):
         # description = 'Warszawa (Polska) Barcelona (Hiszpania) Bilet tam i z powrotem Wylot 9 Styczen 05:00 (Sob) Warszawa, Okecie 08:10 (Sob) Barcelona, Barcelona Powrót 16 Styczen 09:00 (Sob) Barcelona, Barcelona 12:00 (Sob) Warszawa, Okecie W cenie: Bagaz Oplaty lotniskowe Rezerwuj 391pln '
         description = u"Katowice (Polska) Marsa Alam (Egipt) Bilet tam i z powrotem Wylot 27 Luty 09:00 (Sob) " \

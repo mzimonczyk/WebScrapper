@@ -23,7 +23,6 @@ class ItakaParser(IDataParser):
     _data = None
 
     def parse_data(self, content):
-        self._data.clear()
         data = json.loads(content)
         self._has_more_data = data['available_more_offers']
         soup = BeautifulSoup(data['offers'], 'html.parser')
@@ -91,7 +90,8 @@ class ItakaParser(IDataParser):
             print 'Failure to decode', description
 
     def format_date(self, date):
-        months = [u'zero index', u'Styczeń', u'Luty', u'Marzec', u'Kwiecień', u'Maj', u'Czerwiec', u'Lipiec', u'Sierpień',
+        months = [u'zero index', u'Styczeń', u'Luty', u'Marzec', u'Kwiecień', u'Maj', u'Czerwiec', u'Lipiec',
+                  u'Sierpień',
                   u'Wrzesień', u'Październik', u'Listopad', u'Grudzień']
         year = datetime.now().year
         # 9 Luty 12:30'

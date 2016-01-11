@@ -9,15 +9,17 @@ class TuiParser(IDataParser):
     def __init__(self, timestamp):
         IDataParser.__init__(self)
         columns = ['TIMESTAMP', 'DEPARTURE', 'DESTINATION', 'DEPARTURE_DATE', 'RETURN_DATE', 'PRICE', 'FREE_SEATS',
-                   'LAST_UPDATE']
+                   'LAST_UPDATE', '_PAGE']
         table_name = 'TUI'
         self._data = WebData(table_name, columns)
         self._timestamp = timestamp
+        self._last_row_count = 0
 
     _timestamp = None
     _has_more_data = False
     _page_number = 1
     _data = None
+    _last_row_count = 0
 
     def get_data(self):
         return self._data
@@ -28,17 +30,17 @@ class TuiParser(IDataParser):
     def modify_source_desc(self, source_desc):
         assert self._has_more_data
         self._has_more_data = False
-        self._page_number += 1
+        self._page_number += self._last_row_count
         source_desc.url = re.sub('page=\d+', 'page=' + str(self._page_number), source_desc.url)
 
     def parse_data(self, content):
-        self._data.clear()
         data = json.loads(content)
         self._has_more_data = data['count'] > self._page_number
         rows = data['rows']
-        print self._page_number, len(rows)
+        self._last_row_count = len(rows)
+        print 'TUI page:', self._page_number, len(rows)
         for row in rows:
-            #print row['airport_from_name'], row['airport_to_name']
+            # print row['airport_from_name'], row['airport_to_name']
             self._data.add_row([
                 self._timestamp
                 , row['airport_from_name']
@@ -48,7 +50,7 @@ class TuiParser(IDataParser):
                 , row['price']
                 , row['free_seats']
                 , strptime(row['last_update'], "%Y-%m-%d %H:%M:%S")
-                ,
+                , self._page_number
             ])
 
     def format_date(self, date):

@@ -70,5 +70,7 @@ class MockConfigReader(IConfigReader):
         # http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=ln7&adults=2&page=5
         # http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=ln911&adults=2&page=5
         # http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=ln9-13&adults=2&page=5
-        list = {sample1, sample2, sample3, sample4, sample5}
-        return list
+        page_list = {sample1, sample2, sample3, sample4,
+                     sample5
+                     }
+        return page_list

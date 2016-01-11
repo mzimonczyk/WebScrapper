@@ -30,3 +30,15 @@ class TestWebData(TestCase):
         web_data = WebData('TEST', column_list)
 
         self.assertRaises(Exception, web_data.add_row, invalid_row)
+
+    def test_clear_data_removes_all_data(self):
+        column_list = ['Type', 'name', 'address']
+        row1 = ['string', 'ala', 'poland']
+        row2 = ['int', 'ola', 'germany']
+        web_data = WebData('TEST', column_list)
+        web_data.add_row(row1)
+        web_data.add_row(row2)
+
+        web_data.clear()
+
+        self.assertEqual(0, len(web_data.get_rows()))
