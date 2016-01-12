@@ -4,6 +4,8 @@ from DoYouSpainParser import DoYouSpainParser
 from ItakaParser import ItakaParser
 from TuiParser import TuiParser
 
+timestamp = strftime("%Y-%m-%d %H:%M:%S")
+
 
 class DataParserFactory:
     @staticmethod
@@ -13,8 +15,8 @@ class DataParserFactory:
         elif string.find(source_description.url.lower(), 'doyouspain') >= 0:
             return DoYouSpainParser()
         elif string.find(source_description.url.lower(), 'itaka.pl') >= 0:
-            return ItakaParser(strftime("%Y-%m-%d %H:%M:%S"))
+            return ItakaParser(timestamp)
         elif string.find(source_description.url.lower(), 'tui.pl') >= 0:
-            return TuiParser(strftime("%Y-%m-%d %H:%M:%S"))
+            return TuiParser(timestamp)
         pass
 
