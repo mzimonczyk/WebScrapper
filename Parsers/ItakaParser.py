@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
 import json
+import logging
 import re
 from bs4 import BeautifulSoup
-from time import strptime
-from datetime import datetime
-from DataParser import IDataParser
 from Configuration.WebData import WebData
+from DataParser import IDataParser
+from datetime import datetime
+from time import strptime
 
 
 class ItakaParser(IDataParser):
@@ -87,7 +88,7 @@ class ItakaParser(IDataParser):
                                    , self.format_date(results.group("RETURN_DATE"))
                                    , results.group("PRICE").replace(' ', '')])
         else:
-            print 'Failure to decode', description
+            logging.error('Parsing flight failed. Description: %s', description)
 
     def format_date(self, date):
         months = [u'zero index', u'Styczeń', u'Luty', u'Marzec', u'Kwiecień', u'Maj', u'Czerwiec', u'Lipiec',

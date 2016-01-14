@@ -26,3 +26,23 @@ class TestMySqlDataSaver(TestCase):
         saved = saver.save_data(data)
 
         self.assertTrue(saved)
+
+    def test_save_data_return_false_when_connection_fails(self):
+        config = DbConfiguration('config.ini')
+        saver = MySqlDataSaver(config.host, config.database, 'BAD_USER_NAME', config.password)
+        data = WebData('TEST', ['NAME', 'SURNAME'])
+        data.add_row(['Styczeń', 'Test Cityń'])
+
+        saved = saver.save_data(data)
+
+        self.assertFalse(saved)
+
+    def test_save_data_return_false_when_query_fails(self):
+        config = DbConfiguration('config.ini')
+        saver = MySqlDataSaver(config.host, config.database, config.user, config.password)
+        data = WebData('BAD_TABLE_NAME', ['NAME', 'SURNAME'])
+        data.add_row(['Styczeń', 'Test Cityń'])
+
+        saved = saver.save_data(data)
+
+        self.assertFalse(saved)

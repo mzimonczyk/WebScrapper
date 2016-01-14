@@ -1,8 +1,9 @@
-from DataParser import IDataParser
-import re
+import logging
 import json
-from time import strptime
+import re
 from Configuration.WebData import WebData
+from DataParser import IDataParser
+from time import strptime
 
 
 class TuiParser(IDataParser):
@@ -38,20 +39,22 @@ class TuiParser(IDataParser):
         self._has_more_data = data['count'] > self._page_number
         rows = data['rows']
         self._last_row_count = len(rows)
-        print 'TUI page:', self._page_number, len(rows)
         for row in rows:
             # print row['airport_from_name'], row['airport_to_name']
-            self._data.add_row([
-                self._timestamp
-                , row['airport_from_name']
-                , row['airport_to_name']
-                , row['country_name_to'].encode("utf-8")
-                , self.format_date(row['dt_from'])
-                , self.format_date(row['dt_to'])
-                , row['price']
-                , row['free_seats']
-                , strptime(row['last_update'], "%Y-%m-%d %H:%M:%S")
-            ])
+            try:
+                self._data.add_row([
+                    self._timestamp
+                    , row['airport_from_name']
+                    , row['airport_to_name']
+                    , row['country_name_to'].encode("utf-8")
+                    , self.format_date(row['dt_from'])
+                    , self.format_date(row['dt_to'])
+                    , row['price']
+                    , row['free_seats']
+                    , strptime(row['last_update'], "%Y-%m-%d %H:%M:%S")
+                ])
+            except KeyError as ex:
+                logging.error('KeyError - no key: %s while parsing row: %s', type(ex), ex, row)
 
     def format_date(self, date):
         # dt_from=2016-06-14

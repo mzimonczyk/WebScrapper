@@ -1,5 +1,7 @@
 from DataSaver import IDataSaver
 import mysql.connector
+import logging
+
 
 class MySqlDataSaver(IDataSaver):
     def __init__(self, host, database, user, password):
@@ -15,21 +17,24 @@ class MySqlDataSaver(IDataSaver):
 
     def save_data(self, data):
         saved = False
-        connection = mysql.connector.connect(host=self._host
+        try:
+            connection = mysql.connector.connect(host=self._host
                                              , database=self._database
                                              , user=self._user
                                              , password=self._password)
-        try:
-            cursor = connection.cursor()
-            cursor.executemany(self.get_add_query(data), data.get_rows())
-            connection.commit()
-            cursor.close()
-            saved = True
-        except:
-            print 'MySqlDataSaver.save_data. FAIL.'
-            assert 0
-        finally:
-            connection.close()
+            try:
+                cursor = connection.cursor()
+                cursor.executemany(self.get_add_query(data), data.get_rows())
+                connection.commit()
+                cursor.close()
+                saved = True
+            except mysql.connector.Error as err:
+                logging.error(err.msg)
+            finally:
+                connection.close()
+        except mysql.connector.Error as err:
+            logging.error(err.msg)
+
         return saved
 
     def get_add_query(self, data):

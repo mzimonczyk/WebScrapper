@@ -9,6 +9,7 @@ Installation:
 
 
 TODO:
-1. add unit test runner
-2. add logging
-3. use absolute path name when using files (like config.ini)
+ 1. add unit test runner
+ 2. add logging
+ 3. use absolute path name when using files (like config.ini)
+ 4. read input, source data from file

@@ -1,6 +1,7 @@
 from Grabbers.Factory import DataGrabberFactory
 from Parsers.Factory import DataParserFactory
 from Savers.Factory import DataSaverFactory
+import logging
 
 
 def create_web_scrapper(source_description):
@@ -23,6 +24,7 @@ class WebScrapper:
     _source_desc = None
 
     def run(self):
+        logging.info('Starting: %s', self._source_desc.url)
         check_for_more = True
         while check_for_more:
             content = self._grabber.get_data(self._source_desc)
@@ -35,4 +37,5 @@ class WebScrapper:
             if len(data.get_rows()) > 1000 or not check_for_more:
                 self._saver.save_data(data)
                 data.clear()
+        logging.info('Finished: %s', self._source_desc.url)
 
