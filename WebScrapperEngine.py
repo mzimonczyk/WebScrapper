@@ -29,7 +29,7 @@ class WebScrapperEngine:
 
         # define a Handler which writes INFO messages or higher to the sys.stderr
         console = logging.StreamHandler()
-        console.setLevel(logging.WARNING)
+        console.setLevel(logging.INFO)
         # tell the handler to use this format
         console.setFormatter(logging.Formatter(format_string))
         # add the handler to the root logger

@@ -35,7 +35,7 @@ class WebScrapper:
                 self._parser.modify_source_desc(self._source_desc)
 
             if len(data.get_rows()) > 1000 or not check_for_more:
-                self._saver.save_data(data)
+                #self._saver.save_data(data)
                 data.clear()
         logging.info('Finished: %s', self._source_desc.url)
 
