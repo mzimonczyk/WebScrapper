@@ -5,6 +5,7 @@ import logging
 
 class MySqlDataSaver(IDataSaver):
     def __init__(self, host, database, user, password):
+        IDataSaver.__init__(self)
         self._host = host
         self._database = database
         self._user = user
@@ -19,9 +20,9 @@ class MySqlDataSaver(IDataSaver):
         saved = False
         try:
             connection = mysql.connector.connect(host=self._host
-                                             , database=self._database
-                                             , user=self._user
-                                             , password=self._password)
+                                                 , database=self._database
+                                                 , user=self._user
+                                                 , password=self._password)
             try:
                 cursor = connection.cursor()
                 cursor.executemany(self.get_add_query(data), data.get_rows())

@@ -3,7 +3,8 @@ from WebScrapper import create_web_scrapper
 from WebScrapper import WebScrapper
 from Configuration.SourceDescription import SourceDescription
 
-class TestCreate_web_scrapper(TestCase):
+
+class TestCreateWebScrapper(TestCase):
     def test_function_creates_WebScrapper_object(self):
         source = SourceDescription()
 
