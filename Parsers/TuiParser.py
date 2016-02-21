@@ -44,9 +44,9 @@ class TuiParser(IDataParser):
             try:
                 self._data.add_row([
                     self._timestamp
-                    , row['airport_from_name']
-                    , row['airport_to_name']
-                    , row['country_name_to'].encode("utf-8")
+                    , row['airport_from_name'].strip()
+                    , row['airport_to_name'].strip()
+                    , row['country_name_to'].encode("utf-8").strip()
                     , self.format_date(row['dt_from'])
                     , self.format_date(row['dt_to'])
                     , row['price']

@@ -48,6 +48,7 @@ class MockConfigReader(IConfigReader):
         sample1 = SourceDescription()
         sample1.type = 'GET'
         sample1.url = 'http://biletylotnicze.itaka.pl/charter/results-json?departure_date=03.01.2016&adults=2&children=0&sort_type=1&page=1'
+        sample1.url = 'http://biletylotnicze.itaka.pl/charter/results-json?departure_date=03.01.2016&dep_name_sel=123%2CKTW&adults=2&children=0&sort_type=1&page=1'
 
         sample2 = SourceDescription()
         sample2.type = 'GET'
@@ -70,7 +71,17 @@ class MockConfigReader(IConfigReader):
         # http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=ln7&adults=2&page=5
         # http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=ln911&adults=2&page=5
         # http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=ln9-13&adults=2&page=5
-        page_list = {sample1, sample2, sample3, sample4,
-                     sample5
-                     }
+        page_list = list()
+        page_list.append(sample2)
+        page_list.append(sample3)
+        page_list.append(sample4)
+        page_list.append(sample5)
+
+        for airport_code in {'KTW','GDA', 'KRK', 'WRO', 'POZ', 'WAW', 'LCJ', 'RZE', 'BZG'}:
+            sample = SourceDescription()
+            sample.type = 'GET'
+            sample.url = 'http://biletylotnicze.itaka.pl/charter/results-json?departure_date=03.01.2016&dep_name_sel=123%2C[AIRPORT_CODE]&adults=2&children=0&sort_type=1&page=1'
+            sample.url = sample.url.replace('[AIRPORT_CODE]', airport_code)
+            page_list.append(sample)
+
         return page_list

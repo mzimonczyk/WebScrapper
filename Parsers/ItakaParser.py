@@ -68,6 +68,7 @@ class ItakaParser(IDataParser):
 
         # Warszawa (Polska) Barcelona (Hiszpania) Bilet tam i z powrotem Wylot
         # 9 Styczeń 05:00 (Sob) Warszawa, Okęcie 08:10 (Sob) Barcelona, Barcelona Powrót 16 Styczeń 09:00 (Sob) Barcelona, Barcelona 12:00 (Sob) Warszawa, Okęcie W cenie: Bagaż Opłaty lotniskowe Rezerwuj 391pln
+        description = description.replace('--:--', '00:00')
         results = re.match(r"(?P<DEPARTURE>[ \w]+)\([\w ]+\)"
                            r"(?P<DESTINATION>[ \w]+\([\w ]+\))"
                            r".*Wylot "
@@ -82,8 +83,8 @@ class ItakaParser(IDataParser):
         if results:
             # print results.group("DEPARTURE").encode("utf-8"), results.groups()
             self._data.add_row([self._timestamp
-                                   , results.group("DEPARTURE").encode("utf-8")
-                                   , results.group("DESTINATION").encode("utf-8")
+                                   , results.group("DEPARTURE").encode("utf-8").strip()
+                                   , results.group("DESTINATION").encode("utf-8").strip()
                                    , self.format_date(results.group("DEPARTURE_DATE"))
                                    , self.format_date(results.group("RETURN_DATE"))
                                    , results.group("PRICE").replace(' ', '')])
