@@ -77,7 +77,7 @@ class MockConfigReader(IConfigReader):
         page_list.append(sample4)
         page_list.append(sample5)
 
-        for airport_code in {'KTW','GDA', 'KRK', 'WRO', 'POZ', 'WAW', 'LCJ', 'RZE', 'BZG'}:
+        for airport_code in {'KTW','GDN', 'KRK', 'WRO', 'POZ', 'WAW', 'LCJ', 'RZE', 'BZG'}:
             sample = SourceDescription()
             sample.type = 'GET'
             sample.url = 'http://biletylotnicze.itaka.pl/charter/results-json?departure_date=03.01.2016&dep_name_sel=123%2C[AIRPORT_CODE]&adults=2&children=0&sort_type=1&page=1'
