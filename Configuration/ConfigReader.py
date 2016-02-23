@@ -84,4 +84,8 @@ class MockConfigReader(IConfigReader):
             sample.url = sample.url.replace('[AIRPORT_CODE]', airport_code)
             page_list.append(sample)
 
+        sample6 = SourceDescription()
+        sample6.type = 'GET'
+        sample6.url = 'https://www.norwegian.com/pl/rezerwacja/zarezerwuj-przelot/wybierz-lot/?D_City=GDN&A_City=EVE&D_SelectedDay=04&D_Day=04&D_Month=201607&R_SelectedDay=14&R_Day=14&R_Month=201607&dFare=595&rFare=421&AgreementCodeFK=-1&CurrencyCode=PLN'
+        page_list.append(sample6)
         return page_list

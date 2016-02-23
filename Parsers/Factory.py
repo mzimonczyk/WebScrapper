@@ -2,6 +2,7 @@ import string
 from time import strftime
 from DoYouSpainParser import DoYouSpainParser
 from ItakaParser import ItakaParser
+from NorwegianFlightParser import NorwegianFlightParser
 from TuiParser import TuiParser
 
 timestamp = strftime("%Y-%m-%d %H:%M:%S")
@@ -18,5 +19,7 @@ class DataParserFactory:
             return ItakaParser(timestamp)
         elif string.find(source_description.url.lower(), 'tui.pl') >= 0:
             return TuiParser(timestamp)
+        elif string.find(source_description.url.lower(), 'www.norwegian.com/pl/rezerwacja/zarezerwuj-przelot/wybierz-lot') >= 0:
+            return NorwegianFlightParser(timestamp)
         pass
 
