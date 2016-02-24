@@ -4,6 +4,7 @@ from Configuration.SourceDescription import SourceDescription
 from Parsers.DoYouSpainParser import DoYouSpainParser
 from Parsers.Factory import DataParserFactory
 from Parsers.ItakaParser import ItakaParser
+from Parsers.NorwegianFlightParser import NorwegianFlightParser
 from Parsers.TuiParser import TuiParser
 import time
 
@@ -64,3 +65,27 @@ class TestDataParserFactory(TestCase):
 
         self.assertEqual(parser1._timestamp, parser2._timestamp)
 
+    def test_factory_creates_NorwegianFlightParser_when_url_contains_norwegian_wybierz_lot_string(self):
+        factory = DataParserFactory()
+        source = SourceDescription
+        source.url = 'https://www.norwegian.com/pl/rezerwacja/zarezerwuj-przelot/wybierz-lot' \
+                     '/?D_City=GDN&A_City=EVE&D_SelectedDay=04&D_Day=04&D_Month=201607&R_SelectedDay=14' \
+                     '&R_Day=14&R_Month=201607&dFare=595&rFare=421&AgreementCodeFK=-1&CurrencyCode=PLN'
+
+        parser = factory.create(source)
+
+        self.failIfEqual(parser, None)
+        self.assertIsNotNone(parser)
+        self.assertIsInstance(parser, NorwegianFlightParser)
+
+    def test_factory_creates_NorwegianFlightsParser_when_url_contains_norwegian_zarezerwuj_przelot_string(self):
+        factory = DataParserFactory()
+        source = SourceDescription
+        source.url = 'https://www.norwegian.com/pl/rezerwacja/zarezerwuj-przelot/tanie-polaczenia/' \
+                     '?D_City=GDN&A_City=EVE&D_Day=01&D_Month=201607&R_Day=01&R_Month=201607' \
+                     '&AgreementCodeFK=-1&CurrencyCode=PLN'
+
+        parser = factory.create(source)
+
+        #self.failIfEqual(parser, None)
+        self.assertIsNone(parser)
