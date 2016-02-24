@@ -13,4 +13,4 @@ TODO:
  2. + add logging
  3. use absolute path name when using files (like config.ini)
  4. read input, source data from file
- 5. add DataParserImpl with common data and function implementation
+ 5. + add DataParserImpl with common data and function implementation

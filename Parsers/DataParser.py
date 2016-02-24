@@ -1,15 +1,19 @@
-class IDataParser:
-    def __init__(self):
-        pass
+from Configuration.WebData import WebData
+from IDataParser import IDataParser
 
-    def parse_data(self, content):
-        pass
+
+class DataParser(IDataParser):
+    def __init__(self, timestamp, table_name, columns):
+        IDataParser.__init__(self)
+        self._data = WebData(table_name, columns)
+        self._timestamp = timestamp
+
+    _timestamp = None
+    _has_more_data = False
+    _data = None
 
     def get_data(self):
-        pass
+        return self._data
 
     def has_more_data(self):
-        return False
-
-    def modify_source_desc(self, source_desc):
-        pass
+        return self._has_more_data

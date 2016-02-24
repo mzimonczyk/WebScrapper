@@ -1,32 +1,20 @@
 import logging
 import json
 import re
-from Configuration.WebData import WebData
-from DataParser import IDataParser
+from DataParser import DataParser
 from time import strptime
 
 
-class TuiParser(IDataParser):
+class TuiParser(DataParser):
     def __init__(self, timestamp):
-        IDataParser.__init__(self)
         columns = ['TIMESTAMP', 'DEPARTURE', 'DESTINATION', 'COUNTRY', 'DEPARTURE_DATE', 'RETURN_DATE', 'PRICE',
                    'FREE_SEATS', 'LAST_UPDATE']
         table_name = 'TUI'
-        self._data = WebData(table_name, columns)
-        self._timestamp = timestamp
+        DataParser.__init__(self, timestamp, table_name, columns)
         self._last_row_count = 0
 
-    _timestamp = None
-    _has_more_data = False
     _page_number = 1
-    _data = None
     _last_row_count = 0
-
-    def get_data(self):
-        return self._data
-
-    def has_more_data(self):
-        return self._has_more_data
 
     def modify_source_desc(self, source_desc):
         assert self._has_more_data

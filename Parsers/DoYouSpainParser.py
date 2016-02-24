@@ -1,4 +1,4 @@
-from DataParser import IDataParser
+from IDataParser import IDataParser
 
 
 class DoYouSpainParser(IDataParser):

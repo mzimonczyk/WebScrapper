@@ -4,24 +4,18 @@ import json
 import logging
 import re
 from bs4 import BeautifulSoup
-from Configuration.WebData import WebData
-from DataParser import IDataParser
+from DataParser import DataParser
 from datetime import datetime
 from time import strptime
 
 
-class ItakaParser(IDataParser):
+class ItakaParser(DataParser):
     def __init__(self, timestamp):
-        IDataParser.__init__(self)
         columns = ['TIMESTAMP', 'DEPARTURE', 'DESTINATION', 'DEPARTURE_DATE', 'RETURN_DATE', 'PRICE']
         table_name = 'ITAKA'
-        self._data = WebData(table_name, columns)
-        self._timestamp = timestamp
+        DataParser.__init__(self, timestamp, table_name, columns)
 
-    _timestamp = None
-    _has_more_data = False
     _page_number = 1
-    _data = None
 
     def parse_data(self, content):
         data = json.loads(content)
@@ -32,12 +26,6 @@ class ItakaParser(IDataParser):
         for flight in flights:
             if 'oneway' not in flight['class']:
                 self.parse_flight(flight)
-
-    def get_data(self):
-        return self._data
-
-    def has_more_data(self):
-        return self._has_more_data
 
     def modify_source_desc(self, source_desc):
         assert self._has_more_data

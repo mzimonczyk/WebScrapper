@@ -1,27 +1,13 @@
-
 from bs4 import BeautifulSoup
-from Configuration.WebData import WebData
-from DataParser import IDataParser
+from DataParser import DataParser
 
 
-class NorwegianFlightParser(IDataParser):
+class NorwegianFlightParser(DataParser):
     def __init__(self, timestamp):
-        IDataParser.__init__(self)
         columns = ['TIMESTAMP', 'DEPARTURE', 'DEPARTURE_DATE', 'DESTINATION', 'ARRIVAL_DATE'
             , 'PRICE_STANDARD', 'PRICE_STANDARD_PLUS', 'PRICE_FLEX']
         table_name = 'NORWEGIAN_FLIGHT'
-        self._data = WebData(table_name, columns)
-        self._timestamp = timestamp
-
-    _timestamp = None
-    _has_more_data = False
-    _data = None
-
-    def get_data(self):
-        return self._data
-
-    def has_more_data(self):
-        return self._has_more_data
+        DataParser.__init__(self, timestamp, table_name, columns)
 
     def parse_data(self, content):
         soup = BeautifulSoup(content, 'html.parser')
@@ -83,5 +69,5 @@ class NorwegianFlightParser(IDataParser):
                         ])
 
     def _format_price(self, price):
-        #price = price.replace("\xa0", " ")
+        price = price.replace(u'\xa0', u' ')
         return price.strip()
