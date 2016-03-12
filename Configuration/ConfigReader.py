@@ -45,47 +45,33 @@ class MockConfigReader(IConfigReader):
             , 'child_seat': 0
                        }
 
-        sample1 = SourceDescription()
-        sample1.type = 'GET'
-        sample1.url = 'http://biletylotnicze.itaka.pl/charter/results-json?departure_date=03.01.2016&adults=2&children=0&sort_type=1&page=1'
-        sample1.url = 'http://biletylotnicze.itaka.pl/charter/results-json?departure_date=03.01.2016&dep_name_sel=123%2CKTW&adults=2&children=0&sort_type=1&page=1'
-
-        sample2 = SourceDescription()
-        sample2.type = 'GET'
-        sample2.url = 'http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=ln7&adults=2&page=1'
-
-        sample3 = SourceDescription()
-        sample3.type = 'GET'
-        sample3.url = 'http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=lt7&adults=2&page=1'
-
-        sample4 = SourceDescription()
-        sample4.type = 'GET'
-        sample4.url = 'http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=ln911&adults=2&page=1'
-
-        sample5 = SourceDescription()
-        sample5.type = 'GET'
-        sample5.url = 'http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=ln9-13&adults=2&page=1'
-        # http://oferty.tui.pl/bilety-lotnicze/wyniki-wyszukiwania#page=1
-        # http://oferty.tui.pl/ajax/chartersSearch,12755?adults=2&page=28
-        # http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=lt7&adults=2&page=5
-        # http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=ln7&adults=2&page=5
-        # http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=ln911&adults=2&page=5
-        # http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=ln9-13&adults=2&page=5
         page_list = list()
-        page_list.append(sample2)
-        page_list.append(sample3)
-        page_list.append(sample4)
-        page_list.append(sample5)
+        # sample1.url = 'http://biletylotnicze.itaka.pl/charter/results-json?departure_date=03.01.2016&adults=2&children=0&sort_type=1&page=1'
+        page_list.append(SourceDescription('GET', 'http://biletylotnicze.itaka.pl/charter/results-json?departure_date=03.01.2016&dep_name_sel=123%2CKTW&adults=2&children=0&sort_type=1&page=1'))
+        page_list.append(SourceDescription('GET', 'http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=ln7&adults=2&page=1'))
+        page_list.append(SourceDescription('GET', 'http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=lt7&adults=2&page=1'))
+        page_list.append(SourceDescription('GET', 'http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=ln911&adults=2&page=1'))
+        page_list.append(SourceDescription('GET', 'http://oferty.tui.pl/ajax/chartersSearch,12755?dt_length=ln9-13&adults=2&page=1'))
 
+        url = 'http://biletylotnicze.itaka.pl/charter/results-json?departure_date=03.01.2016&dep_name_sel=123%2C[AIRPORT_CODE]&adults=2&children=0&sort_type=1&page=1'
         for airport_code in {'KTW','GDN', 'KRK', 'WRO', 'POZ', 'WAW', 'LCJ', 'RZE', 'BZG'}:
-            sample = SourceDescription()
-            sample.type = 'GET'
-            sample.url = 'http://biletylotnicze.itaka.pl/charter/results-json?departure_date=03.01.2016&dep_name_sel=123%2C[AIRPORT_CODE]&adults=2&children=0&sort_type=1&page=1'
-            sample.url = sample.url.replace('[AIRPORT_CODE]', airport_code)
-            page_list.append(sample)
+            page_list.append(SourceDescription('GET', url.replace('[AIRPORT_CODE]', airport_code)))
 
-        sample6 = SourceDescription()
-        sample6.type = 'GET'
-        sample6.url = 'https://www.norwegian.com/pl/rezerwacja/zarezerwuj-przelot/wybierz-lot/?D_City=GDN&A_City=EVE&D_SelectedDay=04&D_Day=04&D_Month=201607&R_SelectedDay=14&R_Day=14&R_Month=201607&dFare=595&rFare=421&AgreementCodeFK=-1&CurrencyCode=PLN'
-        page_list.append(sample6)
+        page_list.append(SourceDescription('GET', 'https://www.norwegian.com/pl/rezerwacja/zarezerwuj-przelot/wybierz-lot/?D_City=GDN&A_City=EVE&D_SelectedDay=04&D_Day=04&D_Month=201607&R_SelectedDay=14&R_Day=14&R_Month=201607&dFare=595&rFare=421&AgreementCodeFK=-1&CurrencyCode=PLN'))
+
+
+        def _get_wizzair_urls():
+            url = 'https://wizzair.com/pl-PL/TimeTableAjax?departureIATA=[SRC_AIRPORT_CODE]&arrivalIATA=[DST_AIRPORT_CODE]&year=[YEAR]&month=[MONTH]'
+            airport_list = ['GDN', 'AES', 'SVG', 'BGO', 'TRD']
+            for src_airport_code in airport_list:
+                for dst_airpot_code in airport_list:
+                    for year in ['2016']:
+                        for month in ['7', '8']:
+                            yield url.replace('[SRC_AIRPORT_CODE]', src_airport_code)\
+                                .replace('[DST_AIRPORT_CODE]', dst_airpot_code)\
+                                .replace('[YEAR]', year)\
+                                .replace('[MONTH]', month)
+
+        for url in _get_wizzair_urls():
+            page_list.append(SourceDescription('GET', url))
         return page_list

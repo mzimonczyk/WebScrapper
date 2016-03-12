@@ -6,6 +6,7 @@ from Parsers.Factory import DataParserFactory
 from Parsers.ItakaParser import ItakaParser
 from Parsers.NorwegianFlightParser import NorwegianFlightParser
 from Parsers.TuiParser import TuiParser
+from Parsers.WizzairParser import WizzairParser
 import time
 
 
@@ -89,3 +90,14 @@ class TestDataParserFactory(TestCase):
 
         #self.failIfEqual(parser, None)
         self.assertIsNone(parser)
+
+    def test_factory_creates_WizzairParser_when_url_contains_wizzair_com_string(self):
+        factory = DataParserFactory()
+        source = SourceDescription
+        source.url = 'https://wizzair.com/pl-PL/TimeTableAjax?departureIATA=GDN&arrivalIATA=AES&year=2016&month=7'
+
+        parser = factory.create(source)
+
+        self.failIfEqual(parser, None)
+        self.assertIsNotNone(parser)
+        self.assertIsInstance(parser, WizzairParser)
