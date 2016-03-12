@@ -89,7 +89,6 @@ class MockConfigReader(IConfigReader):
                                 .replace('[YEAR]', year)\
                                 .replace('[MONTH]', month)
 
-        page_list = list()
         for url in _get_wizzair_urls():
             page_list.append(SourceDescription('GET', url))
         return page_list
