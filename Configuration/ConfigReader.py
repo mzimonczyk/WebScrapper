@@ -65,10 +65,14 @@ class MockConfigReader(IConfigReader):
         for airport_code in {'KTW','GDN', 'KRK', 'WRO', 'POZ', 'WAW', 'LCJ', 'RZE', 'BZG'}:
             page_list.append(SourceDescription('GET', url.replace('[AIRPORT_CODE]', airport_code)))
 
-        page_list.append(SourceDescription('GET', 'https://www.norwegian.com/pl/rezerwacja/zarezerwuj-przelot/'
-                                                  'wybierz-lot/?D_City=GDN&A_City=EVE&D_SelectedDay=04'
-                                                  '&D_Day=04&D_Month=201607&R_SelectedDay=14&R_Day=14&R_Month=201607'
-                                                  '&dFare=595&rFare=421&AgreementCodeFK=-1&CurrencyCode=PLN'))
+        url = 'https://www.norwegian.com/pl/rezerwacja/zarezerwuj-przelot/' \
+              'wybierz-lot/?D_City=GDN&A_City=[AIRPORT]&D_SelectedDay=04'\
+              '&D_Day=04&D_Month=201607&R_SelectedDay=[RETURN_DAY]&R_Day=14&R_Month=201607'\
+              '&dFare=595&rFare=421&AgreementCodeFK=-1&CurrencyCode=PLN'
+        for airport in ['EVE', 'BDU']:
+            for return_day in ['14', '15']:
+                page_list.append(SourceDescription('GET', url.replace('[AIRPORT]', airport)
+                                                   .replace('[RETURN_DAY]', return_day)))
 
         def _get_wizzair_urls():
             url = 'https://wizzair.com/pl-PL/TimeTableAjax?departureIATA=[SRC_AIRPORT_CODE]&arrivalIATA=' \
