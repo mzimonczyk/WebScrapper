@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from unittest import TestCase
-from WizzairParser import WizzairParser
+from Parsers.WizzairParser import WizzairParser
 from time import strptime
 
 
 class TestWizzairParser(TestCase):
     def test_parse_data(self):
-        with open('test_wizzair.json') as f:
+        with open('Parsers\\test_wizzair.json') as f:
             content_with_five_records = f.read()
 
         parser = WizzairParser('some_date')

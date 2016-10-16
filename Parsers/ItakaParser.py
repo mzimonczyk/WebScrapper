@@ -6,7 +6,7 @@ import re
 from bs4 import BeautifulSoup
 from DataParser import DataParser
 from datetime import datetime
-from time import strptime
+from time import strptime, mktime
 
 
 class ItakaParser(DataParser):
@@ -100,4 +100,11 @@ class ItakaParser(DataParser):
         formatted_date = str(year) + '-' + str(month) + '-' + results.group("day") \
                          + ' ' + results.group("hour") + ':' + results.group("minute")
 
-        return strptime(formatted_date, "%Y-%m-%d %H:%M")
+        return_date = strptime(formatted_date, "%Y-%m-%d %H:%M")
+        if datetime.fromtimestamp(mktime(return_date)) < datetime.now():
+            formatted_date = str(year+1) + '-' + str(month) + '-' + results.group("day") \
+                         + ' ' + results.group("hour") + ':' + results.group("minute")
+            return_date = strptime(formatted_date, "%Y-%m-%d %H:%M")
+
+
+        return return_date
