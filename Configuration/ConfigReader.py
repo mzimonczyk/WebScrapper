@@ -75,7 +75,7 @@ class MockConfigReader(IConfigReader):
                                                    .replace('[RETURN_DAY]', return_day)))
 
         def _get_wizzair_urls():
-            url = 'https://wizzair.com/pl-PL/TimeTableAjax?departureIATA=[SRC_AIRPORT_CODE]&arrivalIATA=' \
+            url = 'https://book.wizzair.com/pl-PL/TimeTableAjax?departureIATA=[SRC_AIRPORT_CODE]&arrivalIATA=' \
                   '[DST_AIRPORT_CODE]&year=[YEAR]&month=[MONTH]'
             flight_connections = [['KTW', 'KEF']
                                  # , ['GDN', 'AES'], ['GDN', 'SVG'], ['GDN', 'BGO'], ['GDN', 'TRD']
