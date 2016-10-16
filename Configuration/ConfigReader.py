@@ -77,13 +77,13 @@ class MockConfigReader(IConfigReader):
         def _get_wizzair_urls():
             url = 'https://wizzair.com/pl-PL/TimeTableAjax?departureIATA=[SRC_AIRPORT_CODE]&arrivalIATA=' \
                   '[DST_AIRPORT_CODE]&year=[YEAR]&month=[MONTH]'
-            flight_connections = [['GDN', 'AES']
-                                  , ['GDN', 'AES'], ['GDN', 'SVG'], ['GDN', 'BGO'], ['GDN', 'TRD']
-                                  , ['GDN', 'HAU'], ['GDN', 'MOL'], ['GDN', 'KRS'], ['GDN', 'KEF']
-                                  , ['KTW', 'EIN'], ['KTW', 'KUT']
+            flight_connections = [['KTW', 'KEF']
+                                 # , ['GDN', 'AES'], ['GDN', 'SVG'], ['GDN', 'BGO'], ['GDN', 'TRD']
+                                 # , ['GDN', 'HAU'], ['GDN', 'MOL'], ['GDN', 'KRS'], ['GDN', 'KEF']
+                                  , ['KTW', 'EIN'], ['KTW', 'KUT'], ['KTW', 'ACE'], ['KTW', 'LIS'], ['KTW', 'DWC']
                                   ]
-            years = ['2016']
-            months = ['7', '8']
+            years = ['2017']
+            months = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
             for flight in flight_connections:
                 for direction in [[0, 1], [1, 0]]:
                     for year in years:
