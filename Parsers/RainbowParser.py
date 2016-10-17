@@ -34,12 +34,12 @@ class RainbowParser(DataParser):
     def _find_source_city(self, line):
         pattern ='<span class="kierunek">Wylot z:&nbsp;</span><span class="miasto">'
         if pattern in line:
-            self._source_city = line.replace(pattern, '').replace('</span></h2>', '').strip()
+            self._source_city = self._format_string(line.replace(pattern, '').replace('</span></h2>', '').strip())
 
     def _find_destination_city(self, line):
         pattern ='<span class="kierunek">Powr&#243;t z:&nbsp;</span><span class="miasto">'
         if pattern in line:
-            self._destination_city = line.replace(pattern, '').replace('</span></h2>', '').strip()
+            self._destination_city = self._format_string(line.replace(pattern, '').replace('</span></h2>', '').strip())
 
     def _find_data(self, line):
         pattern ='dostepneLoty: '
@@ -68,7 +68,8 @@ class RainbowParser(DataParser):
     def _format_date(self, date):
         return strptime(date, "%Y-%m-%d")
 
-
+    def _format_string(self, str):
+        return str.replace(u'\xa0', '').replace(u'&#160;', ' ')
 
 
 
