@@ -5,6 +5,7 @@ from ItakaParser import ItakaParser
 from NorwegianFlightParser import NorwegianFlightParser
 from TuiParser import TuiParser
 from WizzairParser import WizzairParser
+from RainbowParser import RainbowParser
 
 timestamp = strftime("%Y-%m-%d %H:%M:%S")
 
@@ -24,5 +25,7 @@ class DataParserFactory:
             return NorwegianFlightParser(timestamp)
         elif string.find(source_description.url.lower(), 'wizzair.com') >= 0:
             return WizzairParser(timestamp)
+        elif string.find(source_description.url.lower(), 'biletyczarterowe.r.pl') >= 0:
+            return RainbowParser(timestamp)
         pass
 

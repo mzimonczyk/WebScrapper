@@ -74,15 +74,22 @@ class MockConfigReader(IConfigReader):
                 page_list.append(SourceDescription('GET', url.replace('[AIRPORT]', airport)
                                                    .replace('[RETURN_DAY]', return_day)))
 
-        def _get_wizzair_urls():
+        for url in self._get_wizzair_urls():
+            page_list.append(SourceDescription('GET', url))
+        for url in self._get_rainbow_urls():
+            page_list.append(SourceDescription('GET', url))
+        return page_list
+
+    def _get_wizzair_urls(self):
             url = 'https://book.wizzair.com/pl-PL/TimeTableAjax?departureIATA=[SRC_AIRPORT_CODE]&arrivalIATA=' \
                   '[DST_AIRPORT_CODE]&year=[YEAR]&month=[MONTH]'
             flight_connections = [['KTW', 'KEF']
                                  # , ['GDN', 'AES'], ['GDN', 'SVG'], ['GDN', 'BGO'], ['GDN', 'TRD']
                                  # , ['GDN', 'HAU'], ['GDN', 'MOL'], ['GDN', 'KRS'], ['GDN', 'KEF']
                                   , ['KTW', 'EIN'], ['KTW', 'KUT'], ['KTW', 'ACE'], ['KTW', 'LIS'], ['KTW', 'DWC']
+                                  , ['KTW', 'TFS'], ['KTW', 'TLV'], ['KTW', 'AHO']
                                   ]
-            years = ['2017']
+            years = ['2016', '2017']
             months = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
             for flight in flight_connections:
                 for direction in [[0, 1], [1, 0]]:
@@ -93,6 +100,25 @@ class MockConfigReader(IConfigReader):
                                 .replace('[YEAR]', year)\
                                 .replace('[MONTH]', month)
 
-        for url in _get_wizzair_urls():
-            page_list.append(SourceDescription('GET', url))
-        return page_list
+    def _get_rainbow_urls(self):
+        # http://biletyczarterowe.r.pl/Wyszukiwanie?&miastaWylotuZ=[%22KTW%22]&miastaWylotuDo=[%22TFS%22]&miastaPowrotuZ=[%22TFS%22]&miastaPowrotuDo=[%22KTW%22]&dataWylotuOd=2017-04-01&liczbaPasazerow=1&dataPowrotuOd=2017-05-01&wObieStrony=1&nowe=1
+        date_from = '2016-10-01'
+        people_count = str(2)
+        src_airports = ['KTW', 'WAW', 'KRK', 'WRO']
+        dst_airports = ['TFS','RMF','NBE','SKG','GPA','AGA','AYT','BJV','DLM','OLB','SUF','CTA','NAP','FUE','FAO','AGP'
+            ,'LEI','GRO','RHO','KGS','CHQ','HER','PMI','LCA','HRG','SSH','BOJ','VAR'
+            ,'TFS','FUE','TRN','NBE','AGA','HRG','JTR','SKG','GPA','SGN','BKK','DPS','AYT','BJV','DLM','OLB','CAG','CMB'
+            ,'RMF','SUF','NAP','BJL','CTA','TPS','ACE','FAO','VRA','CCC','CUN','AGP','LEI','GRO','VRN','BUS','RHO','KGS'
+            ,'MRU','CHQ','HER','PMI','TNR','LCA','SSH','BOJ','VAR','GNB','FJR','LPA','MBA'
+            ,'SKG','AYT','FAO','BCN','RHO','KGS','CHQ','PMI','BOJ','VAR']
+        dst_airports = list(set(dst_airports))
+        url = 'http://biletyczarterowe.r.pl/Wyszukiwanie?' \
+               '&miastaWylotuZ=[%22[SRC_AIRPORT_CODE]%22]&miastaWylotuDo=[%22[DST_AIRPORT_CODE]%22]' \
+               '&miastaPowrotuZ=[%22[DST_AIRPORT_CODE]%22]&miastaPowrotuDo=[%22[SRC_AIRPORT_CODE]%22]' \
+               '&dataWylotuOd=[DATE_FROM]&liczbaPasazerow=[PEOPLE_COUNT]&dataPowrotuOd=[DATE_FROM]&wObieStrony=1&nowe=1'
+
+        url = url.replace('[PEOPLE_COUNT]', people_count).replace('[DATE_FROM]', date_from)
+        for src_airport in src_airports:
+            for dst_airport in dst_airports:
+                yield url.replace('[SRC_AIRPORT_CODE]', src_airport).replace('[DST_AIRPORT_CODE]', dst_airport)
+

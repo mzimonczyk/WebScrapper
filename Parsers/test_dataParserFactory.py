@@ -7,6 +7,7 @@ from Parsers.ItakaParser import ItakaParser
 from Parsers.NorwegianFlightParser import NorwegianFlightParser
 from Parsers.TuiParser import TuiParser
 from Parsers.WizzairParser import WizzairParser
+from Parsers.RainbowParser import RainbowParser
 import time
 
 
@@ -101,3 +102,14 @@ class TestDataParserFactory(TestCase):
         self.failIfEqual(parser, None)
         self.assertIsNotNone(parser)
         self.assertIsInstance(parser, WizzairParser)
+
+    def test_factory_creates_RainbowParser_when_url_contains_biletyczarterowe_r_pl_string(self):
+        factory = DataParserFactory()
+        source = SourceDescription
+        source.url = 'http://biletyczarterowe.r.pl/Wyszukiwanie?&miastaWylotuZ=["KTW"]&miastaWylotuDo=["TFS"]'
+
+        parser = factory.create(source)
+
+        self.failIfEqual(parser, None)
+        self.assertIsNotNone(parser)
+        self.assertIsInstance(parser, RainbowParser)
