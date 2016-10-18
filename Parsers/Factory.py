@@ -6,6 +6,7 @@ from NorwegianFlightParser import NorwegianFlightParser
 from TuiParser import TuiParser
 from WizzairParser import WizzairParser
 from RainbowParser import RainbowParser
+from RyanairParser import RyanairParser
 
 timestamp = strftime("%Y-%m-%d %H:%M:%S")
 
@@ -27,5 +28,7 @@ class DataParserFactory:
             return WizzairParser(timestamp)
         elif string.find(source_description.url.lower(), 'biletyczarterowe.r.pl') >= 0:
             return RainbowParser(timestamp)
+        elif string.find(source_description.url.lower(), 'ryanair.com') >= 0:
+            return RyanairParser(timestamp)
         pass
 

@@ -8,8 +8,10 @@ from Parsers.NorwegianFlightParser import NorwegianFlightParser
 from Parsers.TuiParser import TuiParser
 from Parsers.WizzairParser import WizzairParser
 from Parsers.RainbowParser import RainbowParser
+from Parsers.RyanairParser import RyanairParser
 import time
 
+#TODO add testing method to remove duplicate code
 
 class TestDataParserFactory(TestCase):
     def test_factory_does_not_create_object_when_url_is_not_set(self):
@@ -113,3 +115,14 @@ class TestDataParserFactory(TestCase):
         self.failIfEqual(parser, None)
         self.assertIsNotNone(parser)
         self.assertIsInstance(parser, RainbowParser)
+
+    def test_factory_creates_RyanairParser_when_url_contains_ryanair_com_string(self):
+        factory = DataParserFactory()
+        source = SourceDescription
+        source.url = 'https://www.ryanair.com/pl/api/2/flights/from/BVA/to/OPO/2016-06-01/2018-07-02/outbound/cheapest-per-day/'
+
+        parser = factory.create(source)
+
+        self.failIfEqual(parser, None)
+        self.assertIsNotNone(parser)
+        self.assertIsInstance(parser, RyanairParser)

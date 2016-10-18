@@ -1,5 +1,5 @@
 from Configuration.SourceDescription import SourceDescription
-
+from datetime import datetime, timedelta
 
 def ceate_mock_config_reader():
     return MockConfigReader()
@@ -78,6 +78,9 @@ class MockConfigReader(IConfigReader):
             page_list.append(SourceDescription('GET', url))
         for url in self._get_rainbow_urls():
             page_list.append(SourceDescription('GET', url))
+        page_list = []
+        for url in self._get_ryanair_urls():
+            page_list.append(SourceDescription('GET', url))
         return page_list
 
     def _get_wizzair_urls(self):
@@ -102,7 +105,7 @@ class MockConfigReader(IConfigReader):
 
     def _get_rainbow_urls(self):
         # http://biletyczarterowe.r.pl/Wyszukiwanie?&miastaWylotuZ=[%22KTW%22]&miastaWylotuDo=[%22TFS%22]&miastaPowrotuZ=[%22TFS%22]&miastaPowrotuDo=[%22KTW%22]&dataWylotuOd=2017-04-01&liczbaPasazerow=1&dataPowrotuOd=2017-05-01&wObieStrony=1&nowe=1
-        date_from = '2016-10-01'
+        date_from = datetime.now().strftime('%Y-%m-%d')
         people_count = str(2)
         src_airports = ['KTW', 'WAW', 'KRK', 'WRO']
         dst_airports = ['TFS','RMF','NBE','SKG','GPA','AGA','AYT','BJV','DLM','OLB','SUF','CTA','NAP','FUE','FAO','AGP'
@@ -122,3 +125,15 @@ class MockConfigReader(IConfigReader):
             for dst_airport in dst_airports:
                 yield url.replace('[SRC_AIRPORT_CODE]', src_airport).replace('[DST_AIRPORT_CODE]', dst_airport)
 
+    def _get_ryanair_urls(self):
+        # https://www.ryanair.com/pl/api/2/flights/from/BVA/to/OPO/2015-06-01/2018-07-02/outbound/cheapest-per-day/
+        date_from = datetime.now().strftime('%Y-%m-%d')
+        date_to = (datetime.now()+timedelta(days=366)).strftime('%Y-%m-%d')
+        src_airports = ['KRK', 'WAW', 'KTW']
+        dst_airports = ['TFS','OPO','PLM']
+        url = 'https://www.ryanair.com/pl/api/2/flights/from/[SRC_AIRPORT_CODE]/to/[DST_AIRPORT_CODE]/[DATE_FROM]/[DATE_TO]/outbound/cheapest-per-day/'
+        url = url.replace('[DATE_FROM]', date_from).replace('[DATE_TO]', date_to)
+        for src_airport in src_airports:
+            for dst_airport in dst_airports:
+                yield url.replace('[SRC_AIRPORT_CODE]', src_airport).replace('[DST_AIRPORT_CODE]', dst_airport)
+                yield url.replace('[SRC_AIRPORT_CODE]', dst_airport).replace('[DST_AIRPORT_CODE]', src_airport)
