@@ -78,7 +78,6 @@ class MockConfigReader(IConfigReader):
             page_list.append(SourceDescription('GET', url))
         for url in self._get_rainbow_urls():
             page_list.append(SourceDescription('GET', url))
-        page_list = []
         for url in self._get_ryanair_urls():
             page_list.append(SourceDescription('GET', url))
         return page_list
