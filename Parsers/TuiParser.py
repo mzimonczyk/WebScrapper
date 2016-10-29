@@ -7,7 +7,7 @@ from time import strptime
 
 class TuiParser(DataParser):
     def __init__(self, timestamp):
-        columns = ['TIMESTAMP', 'DEPARTURE', 'DESTINATION', 'COUNTRY', 'DEPARTURE_DATE', 'RETURN_DATE', 'PRICE',
+        columns = ['TIMESTAMP', 'DEPARTURE', 'DESTINATION', 'DEPARTURE_TIME', 'RETURN_TIME', 'PRICE',
                    'FREE_SEATS', 'LAST_UPDATE']
         table_name = 'TUI'
         DataParser.__init__(self, timestamp, table_name, columns)
@@ -33,8 +33,8 @@ class TuiParser(DataParser):
                 self._data.add_row([
                     self._timestamp
                     , row['airport_from_name'].strip()
-                    , row['airport_to_name'].strip()
-                    , row['country_name_to'].encode("utf-8").strip()
+                    , row['airport_to_name'].encode("utf-8").strip() + ' - '.encode("utf-8")
+                      + row['country_name_to'].encode("utf-8").strip()
                     , self.format_date(row['dt_from'])
                     , self.format_date(row['dt_to'])
                     , row['price']

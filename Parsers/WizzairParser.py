@@ -7,7 +7,7 @@ from time import strptime
 
 class WizzairParser(DataParser):
     def __init__(self, timestamp):
-        columns = ['TIMESTAMP', 'DEPARTURE', 'DESTINATION', 'DEPARTURE_TIME', 'MIN_PRICE', 'CURRENCY']
+        columns = ['TIMESTAMP', 'DEPARTURE', 'DESTINATION', 'DEPARTURE_TIME', 'PRICE', 'CURRENCY']
         table_name = 'WIZZAIR'
         DataParser.__init__(self, timestamp, table_name, columns)
 
