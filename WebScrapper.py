@@ -25,9 +25,11 @@ class WebScrapper:
 
     def run(self):
         logging.info('Starting: %s', self._source_desc.url)
+
         check_for_more = True
         while check_for_more:
             content = self._grabber.get_data(self._source_desc)
+
             self._parser.parse_data(content)
             data = self._parser.get_data()
             check_for_more = self._parser.has_more_data()
@@ -37,5 +39,6 @@ class WebScrapper:
             if len(data.get_rows()) > 1000 or not check_for_more:
                 self._saver.save_data(data)
                 data.clear()
+
         logging.info('Finished: %s', self._source_desc.url)
 

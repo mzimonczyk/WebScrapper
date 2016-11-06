@@ -20,7 +20,6 @@ class WebData:
         return self._row_list
 
     def add_row(self, row):
-
         assert len(row) == len(self._column_list)
         self._row_list.append(row)
 

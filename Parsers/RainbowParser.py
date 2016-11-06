@@ -9,7 +9,7 @@ from time import strptime
 
 class RainbowParser(DataParser):
     def __init__(self, timestamp):
-        columns = ['TIMESTAMP', 'DEPARTURE', 'DESTINATION', 'DEPARTURE_DATE', 'PRICE', 'R_ID']
+        columns = ['TIMESTAMP', 'DEPARTURE', 'DESTINATION', 'DEPARTURE_TIME', 'PRICE', 'R_ID']
         table_name = 'RAINBOW'
         DataParser.__init__(self, timestamp, table_name, columns)
 

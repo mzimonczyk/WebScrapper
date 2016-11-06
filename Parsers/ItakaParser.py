@@ -11,7 +11,7 @@ from time import strptime, mktime
 
 class ItakaParser(DataParser):
     def __init__(self, timestamp):
-        columns = ['TIMESTAMP', 'DEPARTURE', 'DESTINATION', 'DEPARTURE_DATE', 'RETURN_DATE', 'PRICE']
+        columns = ['TIMESTAMP', 'DEPARTURE', 'DESTINATION', 'DEPARTURE_TIME', 'RETURN_TIME', 'PRICE']
         table_name = 'ITAKA'
         DataParser.__init__(self, timestamp, table_name, columns)
 
