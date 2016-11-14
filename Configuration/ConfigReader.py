@@ -78,8 +78,8 @@ class MockConfigReader(IConfigReader):
             page_list.append(SourceDescription('GET', url))
         for url in self._get_rainbow_urls():
             page_list.append(SourceDescription('GET', url))
-        for url in self._get_ryanair_urls():
-            page_list.append(SourceDescription('GET', url))
+        # for url in self._get_ryanair_urls():
+        #     page_list.append(SourceDescription('GET', url))
         return page_list
 
     def _get_wizzair_urls(self):
@@ -126,13 +126,13 @@ class MockConfigReader(IConfigReader):
                 yield url.replace('[SRC_AIRPORT_CODE]', src_airport).replace('[DST_AIRPORT_CODE]', dst_airport)
 
     def _get_ryanair_urls(self):
-        # https://www.ryanair.com/pl/api/2/flights/from/BVA/to/OPO/2015-06-01/2018-07-02/outbound/cheapest-per-day/
+        # old: https://www.ryanair.com/pl/api/2/flights/from/BVA/to/OPO/2015-06-01/2018-07-02/outbound/cheapest-per-day/
+        # new: https://desktopapps.ryanair.com/pl-pl/availability?ADT=2&CHD=0&DateOut=2016-11-29&Destination=STN&FlexDaysOut=1&INF=0&Origin=KTW&RoundTrip=false&TEEN=0
         date_from = datetime.now().strftime('%Y-%m-%d')
-        date_to = (datetime.now()+timedelta(days=366)).strftime('%Y-%m-%d')
         src_airports = ['KRK', 'WAW', 'KTW']
         dst_airports = ['TFS','OPO','PLM']
-        url = 'https://www.ryanair.com/pl/api/2/flights/from/[SRC_AIRPORT_CODE]/to/[DST_AIRPORT_CODE]/[DATE_FROM]/[DATE_TO]/outbound/cheapest-per-day/'
-        url = url.replace('[DATE_FROM]', date_from).replace('[DATE_TO]', date_to)
+        url = 'https://desktopapps.ryanair.com/pl-pl/availability?ADT=2&CHD=0&DateOut=[DATE_FROM]&Destination=[DST_AIRPORT_CODE]&FlexDaysOut=[DAYS]&INF=0&Origin=[SRC_AIRPORT_CODE]&RoundTrip=false&TEEN=0'
+        url = url.replace('[DATE_FROM]', date_from).replace('[DAYS]', '6')
         for src_airport in src_airports:
             for dst_airport in dst_airports:
                 yield url.replace('[SRC_AIRPORT_CODE]', src_airport).replace('[DST_AIRPORT_CODE]', dst_airport)
