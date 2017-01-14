@@ -91,6 +91,7 @@ class MockConfigReader(IConfigReader):
                                   , ['KTW', 'EIN'], ['KTW', 'KUT'], ['KTW', 'ACE'], ['KTW', 'LIS'], ['KTW', 'DWC']
                                   , ['KTW', 'TFS'], ['KTW', 'TLV'], ['KTW', 'AHO'], ['KTW', 'BCN'], ['KTW', 'SVG']
                                   , ['KTW', 'BGO'], ['KTW', 'GLA'], ['KTW', 'CIA'], ['KTW', 'MLA']
+                                  , ['GDA', 'GLA'], ['GDA', 'ABZ']
                                   ]
             years = ['2016', '2017']
             months = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
