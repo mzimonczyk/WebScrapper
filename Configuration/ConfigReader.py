@@ -91,7 +91,7 @@ class MockConfigReader(IConfigReader):
                                   , ['KTW', 'EIN'], ['KTW', 'KUT'], ['KTW', 'ACE'], ['KTW', 'LIS'], ['KTW', 'DWC']
                                   , ['KTW', 'TFS'], ['KTW', 'TLV'], ['KTW', 'AHO'], ['KTW', 'BCN'], ['KTW', 'SVG']
                                   , ['KTW', 'BGO'], ['KTW', 'GLA'], ['KTW', 'CIA'], ['KTW', 'MLA'], ['KTW', 'LCA']
-                                  , ['GDA', 'GLA'], ['GDA', 'ABZ']
+                                  , ['GDN', 'GLA'], ['GDN', 'ABZ']
                                   , ['KTW', 'BRI'], ['KTW', 'BLQ'], ['KTW', 'BOJ'], ['KTW', 'BRS'], ['KTW', 'CTA']
                                   , ['KTW', 'IEV'], ['KTW', 'BGY'], ['KTW', 'NAP']
                                   ]
