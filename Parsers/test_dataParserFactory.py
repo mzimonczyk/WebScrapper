@@ -9,6 +9,7 @@ from Parsers.TuiParser import TuiParser
 from Parsers.WizzairParser import WizzairParser
 from Parsers.RainbowParser import RainbowParser
 from Parsers.RyanairParser import RyanairParser
+from Parsers.AzairParser import AzairParser
 import time
 
 #TODO add testing method to remove duplicate code
@@ -126,3 +127,14 @@ class TestDataParserFactory(TestCase):
         self.failIfEqual(parser, None)
         self.assertIsNotNone(parser)
         self.assertIsInstance(parser, RyanairParser)
+
+    def test_factory_creates_AzAirParser_when_url_contains_azair_eu_string(self):
+        factory = DataParserFactory()
+        source = SourceDescription
+        source.url = 'http://www.azair.eu/azfin.php?tp=0&searchtype=flexi&srcAirport=Krakow+%5BKRK%5D+%28%2BKTW%2COSR%2CWRO%2CWAW%29&srcTypedText=&srcFreeTypedText=&srcMC=&srcap0=KTW&srcap2=OSR&srcap7=WRO&srcap10=WAW&srcFreeAirport=&dstAirport=Anywhere+%5BXXX%5D&dstTypedText=xx&dstFreeTypedText=&dstMC=&adults=1&children=0&infants=0&minHourStay=0%3A45&maxHourStay=16%3A30&minHourOutbound=0%3A00&maxHourOutbound=24%3A00&minHourInbound=0%3A00&maxHourInbound=24%3A00&depdate=27.4.2017&arrdate=9.5.2017&minDaysStay=7&maxDaysStay=12&nextday=0&autoprice=true&currency=PLN&wizzxclub=false&supervolotea=false&schengen=false&transfer=false&samedep=true&samearr=true&dep0=true&dep1=true&dep2=true&dep3=true&dep4=true&dep5=true&dep6=true&arr0=true&arr1=true&arr2=true&arr3=true&arr4=true&arr5=true&arr6=true&maxChng=0&isOneway=return&resultSubmit=Search#'
+
+        parser = factory.create(source)
+
+        self.failIfEqual(parser, None)
+        self.assertIsNotNone(parser)
+        self.assertIsInstance(parser, AzairParser)
