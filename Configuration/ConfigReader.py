@@ -78,7 +78,6 @@ class MockConfigReader(IConfigReader):
             page_list.append(SourceDescription('GET', url))
         for url in self._get_rainbow_urls():
             page_list.append(SourceDescription('GET', url))
-        page_list = list()
         for url in self._get_azair_urls():
             page_list.append(SourceDescription('GET', url))
         # for url in self._get_ryanair_urls():
@@ -154,7 +153,11 @@ class MockConfigReader(IConfigReader):
               '&minDaysStay=[MIN_DAYS]&maxDaysStay=[MAX_DAYS]' \
               '&nextday=0&autoprice=true&currency=PLN&wizzxclub=false&supervolotea=false&schengen=false&transfer=false&samedep=true&samearr=true&dep0=true&dep1=true&dep2=true&dep3=true&dep4=true&dep5=true&dep6=true&arr0=true&arr1=true&arr2=true&arr3=true&arr4=true&arr5=true&arr6=true&maxChng=0&isOneway=return&resultSubmit=Search#'
         flight_connections = [
-            ['Krakow+[KRK]+(%2BKTW%2COSR%2CWRO%2CWAW)', 'Anywhere+[XXX]', '27.4.2017', '9.5.2017', '7', '12'],
+            ['Krakow+[KRK]', 'Anywhere+[XXX]', '27.4.2017', '9.5.2017', '4', '12'],
+            ['Katowice+[KTW]', 'Anywhere+[XXX]', '27.4.2017', '9.5.2017', '4', '12'],
+            ['Warsaw+[WAW]+(%2BWMI)', 'Anywhere+[XXX]', '27.4.2017', '9.5.2017', '4', '12'],
+            ['Ostrava+[OSR]', 'Anywhere+[XXX]', '27.4.2017', '9.5.2017', '4', '12'],
+            ['Wroclaw+[WRO]', 'Anywhere+[XXX]', '27.4.2017', '9.5.2017', '4', '12'],
             ['Gdansk+[GDN]', 'Glasgow+[GLA]+(%2BEDI%2CABZ)', '2.7.2017', '18.7.2017', '7', '15'],
         ]
         for flight in flight_connections:
